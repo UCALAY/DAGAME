@@ -123,10 +123,9 @@ class Battle:
                         print "check your spelling!"
                     inpt = raw_input ('would you like to use a special move?')
                     if inpt == "yes":
-                        inpt = raw_input('You can use:\n1.unbeatable thrashing (Best for knight)\n2.invincible claws and teeth (best for werewolf)\n3.magical super power (best for rogue)\n')
-                        if mainCharacter.SpecialMove() == True:
-                            print "you bested the zombie"
-                            break
+                        inpt = raw_input('You can use:\n1.lightning shot (Best for knight)\n2.invincible claws and teeth (best for werewolf)\n3.magical super power (best for rogue)\n')
+                        if inpt == "1":
+                            mainCharacter.specialMove(zombie)
                         else:
                             print "You failed!"
                             continue
@@ -164,68 +163,10 @@ class Character:
     health = 100
     city = None
     money = 100
-    #0 and None are different!  0 is a number and None is a class
-    healthpotion = 0
-    manapotion = 0
-    suicidepotion = 0
     weapon = None
-    actionpoints = 100 
+    mana = 100 
     damage = 5
     Inventory = Inventory()
-    def SpecialMove(self):
-        if inpt == "1":
-            if mainCharacter == Knight():
-                if random.randint(2,5) >1:
-                    return True
-                    print "You bested the zombie and killed it"                
-                else:
-                    print "too bad, you failed!"
-                    return False
-        if inpt == "1":
-            if mainCharacter == Werewolf() or mainCharacter == Rogue():
-                if random.randint(1,10) >9:
-                    return True
-                    print "You bested the zombie and killed it"
-                else:
-                    print "too bad, you failed!"
-                    return False
-        if inpt == "2":
-            if mainCharacter == Werewolf():
-                if random.randint(1,6) >5:
-                    return True
-                    print "You bested the zombie and killed it"
-                else:
-                    print "too bad, you failed!"
-                    return False
-
-        if inpt == "2":
-            if mainCharacter == Knight() or mainCharacter == Rogue():
-                if random.randint(1,10) >9:
-                    return True
-                    print "You bested the zombie and killed it"
-                else:
-                    print "too bad, you failed!"
-                    return False
-
-        if inpt == "3":
-            if mainCharacter == Rogue():
-                if random.randint(1,6) >5:
-                    return True
-                    print "You bested the zombie and killed it"
-                else:
-                    print "too bad, you failed!"
-                    return False
-
-        if inpt == "3":
-            if mainCharacter == Werewolf() or mainCharacter == Knight():
-                if random.randint(1,10) >9:
-                    return True
-                    print "You bested the zombie and killed it"
-                else:
-                    print "too bad, you failed!"
-                    return False
-
-
     def stash(self, item):
         self.Inventory.Addtobag(item)
     def dodge(self):
@@ -281,7 +222,20 @@ class Devil(Character):
 
 class Knight(Character):
     name = "Piercer"
-   
+    def specialMove(self, enemy):
+        if mainCharacter.mana <15:
+            print "you don't have enough mana!"
+            return
+        else:
+            mainCharacter.mana = mainCharacter.mana - 15
+            print "you shoot lightning, as that is your power as a knight."
+            if random.randint(1,6) >3:
+                enemy.health = enemy.health - 200
+                print "you dealt %d damage" % 200
+            if random.randint(1,6) <3:
+                print "you failed your special move!!!"
+
+            
 
 class Rogue(Character):
     name = "Altair"
