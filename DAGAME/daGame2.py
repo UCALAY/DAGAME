@@ -6,6 +6,8 @@ class City:
     def __init__(self, name):    
         self.name = name
 
+class Test:
+    pass
 
 class PotionShop:
     def __init__(self):
