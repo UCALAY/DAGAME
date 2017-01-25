@@ -8,6 +8,8 @@ class City:
 
 class Test:
     pass
+class stupid:
+    pass
 
 class PotionShop:
     def __init__(self):
