@@ -6,9 +6,6 @@ class City:
     def __init__(self, name):    
         self.name = name
 
-class Test:
-    pass
-
 class PotionShop:
     def __init__(self):
         potion = None
@@ -39,34 +36,24 @@ class PotionShop:
 # we have to put the LongSword class ABOVE the WeaponShop class
 class WeaponShop:
     def __init__(self):
+        weapon = None
         inpt = raw_input("Welcome to the weapon shop. What would you like to buy?\n1.Longsword($50)\n2.Bow and arrows($50)\n")
-
         if mainCharacter.money <50: 
             print "What! you don't have enough money! Cheapskate! You only have this much money:"
             print mainCharacter.money 
         else: 
-            
-            if inpt == "1" or inpt == "sword" or inpt == "longSword" or inpt == "Sword" or inpt == "LongSword":
-                inpt = raw_input ('Here are all the facts about the Longsword:\n1.damage = 50\n2.critical hit = 10\n3.name = Long Sword.\n Would you still like to buy this:\n1.yes\n2.no\n')
-                if inpt == "yes" or inpt == "1":
-                    longSword = LongSword()
-                    mainCharacter.Inventory.Addtobag(longSword)
-                    mainCharacter.money = mainCharacter.money - 50
-                    mainCharacter.equip(LongSword)
-                    print "Thanks, come again!"    
-                if inpt == "no" or inpt == "2":
-                    inpt = raw_input ('Then get the hell outta here. Close terminal and then come back. But don\'t ever come back to this shop! Get out!!!')
-
-            if inpt == "2" or inpt == "bow" or inpt == "bow and arrow" or inpt == "bow and arrows" or inpt == "Bow and arrow" or inpt == "Bow and arrows":
-                inpt = raw_input ('Here are all the facts about the Bow:\n1.damage = 75\n2.critical hit = 10\n3.name = Bow and Arrows.\n Would you still like to buy this:\n1.yes\n2.no\n')
-                if inpt == "1" or inpt == "yes":
-                    print "Thanks, come again!"
-                    bow = Bow()
-                    mainCharacter.Inventory.Addtobag(bow)
-                    mainCharacter.money = mainCharacter.money - 50
-                    mainCharacter.equip(Bow)
-                if inpt == "2" or inpt == "no":
-                    inpt = raw_input ('Then get the hell outta here. Close terminal and then come back. But don;t ever come back to this shop! Get out!!!')
+            if inpt == "1":
+                weapon = Longsword()
+            if inpt == "2":
+                weapon = Bow()
+            inpt = raw_input ("would you still like to by this?\n1.yes\n2.no\n")
+            if inpt == "1" or inpt == "yes":
+                mainCharacter.money = mainCharacter.money - 50
+                mainCharacter.Inventory.Addtobag(weapon)
+                print "Thanks, come again!"
+            if inpt == "2" or inpt == "no":
+                pass 
+ 
 class Manapotion:
     use = "increase damage by ten"
 class Potion:
