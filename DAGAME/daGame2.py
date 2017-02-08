@@ -98,40 +98,64 @@ class Bow(Weapon):
 
 class Battle:
     def __init__(self):
-        print "a zombie has appeared"
+        print "FIGHT!"
         inpt = raw_input ('what would you like to do:\n1.fight\n2.run\n')
         if inpt == "fight" or inpt == "1":
-            zombie = Zombie()
-            while zombie.health >0:
+            list = []
+            numen = random.randint(1, 2)
+            index = 0
+            while index < numen:
+                enmy = random.randint(1, 2):
+                if enmy == 1:
+                    list.append(Barbarian())
+                elif enmy == 2:
+                    list.append(Zombie())
+                    
+            while len(list) > 0:
                 inpt = raw_input ('1. attack\n2. use potion\n')
                 if inpt == "1" or inpt == "attack":
-                    mainCharacter.attack(zombie)
-                    if zombie.health <= 0:
-                        mainCharacter.money = mainCharacter.money + 10
-                        break
-                    inpt = raw_input ('a zombie is about to attack you. What would you like to do:\n1.dodge\n2.block\n')
-                    if inpt == "dodge" or inpt == "1":
-                        if mainCharacter.dodge() == False:
-
-                            zombie.attack(mainCharacter)
-                            if mainCharacter.health <= 0:
-                                print "You ran out of health and died!!! Please close terminal and come back to play again"
-
-                    elif inpt == "block" or inpt == "2":
+                    index = 1
+                    
+                    for enemy in list:
+                        print index
+                        print enemy.__class__.__name__, enemy. health
+                        index = index + 1
+                    inpt = raw_input("What enemey(s) would your like to fight? Enter a number: ")
+                    #make sure to create code line that checks the users input
+                    try:
+                        inpt = int(inpt)
+                        mainCharacter.attack(list[inpt - 1])
+                    except:
                         pass
-                    else:
-                        print "check your spelling!"
-                    inpt = raw_input ('would you like to use a special move?')
-                    if inpt == "yes":
-                        inpt = raw_input('You can use:\n1.lightning shot (Best for knight)\n2.invincible claws and teeth (best for werewolf)\n3.magical super power (best for rogue)\n')
-                        if inpt == "1":
-                            mainCharacter.specialMove(zombie)
+                    
+                    
+                    for enemy in list:
+                        if enemy.health <= 0:
+                            list.remove(enemy)
+                            mainCharacter.money = mainCharacter.money + 10
+                            print "Enemy Defeated! You have gained 10 money to be greedy with. Just remember you are still poor!"
+                    for enemy in list:
+                        inpt = raw_input ('The %s is about to attack you. What would you like to do:\n1.dodge\n2.block\n'%enemy.name)
+                        if inpt == "dodge" or inpt == "1":
+                            if mainCharacter.dodge() == False:
+                               enemy.attack(mainCharacter)
+
+                        elif inpt == "block" or inpt == "2":
+                            pass
                         else:
-                            print "You failed!"
-                            continue
-                    if inpt == "no":
-                        break
-                        print "too bad"
+                            print "check your spelling!"
+                        inpt = raw_input ('would you like to use a special move?')
+                        if inpt == "yes":
+                            inpt = raw_input('You can use:\n1.lightning shot (Best for knight)\n2.invincible claws and teeth (best for werewolf)\n3.magical super power (best for rogue)\n')
+                            if inpt == "1":
+                                mainCharacter.specialMove(zombie)
+                            else:
+                                print "You failed!"
+                                continue
+                        if inpt == "no":
+                            break
+                            print "too bad"
+                            
                 elif inpt == "2" or inpt == "use potion":
                     inpt = raw_input ('Which potion would you like to use:\n1.Health\n2.Mana\n3.Suicide\n')
                     ###KIND OF A BIG PROBLEM! When people choose what potion, they could cheat by saying they want a health potion when they don't have it,and then they would get to use it anyway!!!
@@ -146,14 +170,28 @@ class Battle:
                         inpt = raw_input ('YOU DIED!!! Please close terminal and come back again to play more')
         elif inpt == "run" or inpt == "2":
             print "you ran away! Coward!!!"
-class Zombie:
-    health = 100
-    damage = 5
-    def __init__(self):
-        print "ahhhhh, brains, yum!"
+
+class Enemy:
+    health = 1
+    damage = 1
+    name = "Your name here"
     def attack(self, enemy):
         enemy.health = enemy.health - self.damage
-        print "zombie dealt %d damage" % self.damage
+        print "Your foe dealt %d damage" % self.damage
+class Zombie(Enemy):
+    health = 100
+    damage = 5
+    name = "Zombie"
+    def __init__(self):
+        print "ahhhhh, brains, yum!"
+class Barbarian(Enemy):
+    health = 200
+    damage = 15
+    name = "Barbarian"
+    def __init__(self):
+        print "Im gonna kill yah!!"
+    
+        
             
     
 
