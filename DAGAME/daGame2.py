@@ -105,11 +105,14 @@ class Battle:
             numen = random.randint(1, 2)
             index = 0
             while index < numen:
-                enmy = random.randint(1, 2):
+                enmy = random.randint(1, 2)
                 if enmy == 1:
                     list.append(Barbarian())
                 elif enmy == 2:
                     list.append(Zombie())
+                index = index + 1
+                
+
                     
             while len(list) > 0:
                 inpt = raw_input ('1. attack\n2. use potion\n')
