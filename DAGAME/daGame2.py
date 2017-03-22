@@ -71,12 +71,30 @@ class Inventory:
             print self.list[key].__class__.__name__
         inpt = raw_input("What item would you like to take from your endless bag of junk: ")
         self.list[int(inpt)].use()
+
+       
 class Manapotion(Potion):
     use = "increase damage by ten"
+    def use():
+        if mainCharacter.Manapotion >1:
+            mainCharacter.Manapotion - 1
+        else:
+            print "Hacker!!!"
+
 class Healthpotion(Potion):
     use = "increase health by 100"
+    def use():
+        if mainCharacter.Healthpotion >1:
+            mainCharacter.Healthpotion - 1
+        else:
+            print "Hacker!!!"
 class Suicidepotion(Potion):
     use = "KILLS!!!!!"
+    def use():
+        if mainCharacter.Suicidepotion >1:
+            mainCharacter.Suicidepotion - 1
+        else:
+            print "Hacker!!!"
     
             
 class Weapon:
@@ -190,6 +208,9 @@ class Barbarian(Enemy):
     
 
 class Character:
+    Manapotion = 0
+    Healthpotion = 0
+    Suicidepotion = 0
     dodgeChance = 50
     blockChance = 50
     health = 100
@@ -293,9 +314,7 @@ if inpt == "Werewolf"or inpt == "werewolf" or inpt == "2":
 if inpt == "Rogue" or inpt == "rogue" or inpt == "3":
     mainCharacter = Rogue()
     print "you have chosen the path of the rogue, the most tactical and stealthy of the trisquod. Green blob zombies are attacking Manhattan. Learn from master wizard. Fight the zombies, or Humanity will be destroyed.If you want to know how much health you have, type \'how much health do I have\' or \'what is my health\'. If you want to know how much money you have, type \'how much money do I have. \'"
-if inpt.lower() == "dev":
-    mainCharacter = Dev()
-    print "Welcome developer, you have selected a class designed for your personal use that is otherwise off limits for players."
+
 
 mainCharacter.setCity(startingCity)
 
