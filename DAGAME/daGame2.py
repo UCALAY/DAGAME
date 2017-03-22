@@ -75,11 +75,14 @@ class Inventory:
        
 class Manapotion(Potion):
     use = "increase damage by ten"
+
     def use():
         if mainCharacter.Manapotion >1:
             mainCharacter.Manapotion - 1
         else:
             print "Hacker!!!"
+
+ 
 
 class Healthpotion(Potion):
     use = "increase health by 100"
@@ -139,28 +142,31 @@ class Battle:
             while len(list) > 0:
                 #Your attack phase
                 inpt = raw_input ('1. attack\n2. use special move\n3. Open Bag\n')
-                if inpt == "1" or inpt == "attack":
-                    index = 1
-                    
+
+                enemyNum = 0
+ 
+
+                if inpt == "1" or inpt == "attack" or inpt == "2":
+                    index = 1         
+                    print list           
+
                     for enemy in list:
                         print index,
                         print enemy.__class__.__name__, enemy.health
                         index = index + 1
-                    inpt = raw_input("What enemey(s) would you like to fight? Enter a number based on the info from above:\n")
+
+                    enemyNum = raw_input("What enemey(s) would you like to fight? Enter a number based on the info from above:\n")
+
                     try:
-                        inpt = int(inpt)
-                        mainCharacter.attack(list[inpt - 1])
+                        enemyNum = int(inpt)
                     except:
                          pass
+
+                if inpt == "1":
+                    mainCharacter.attack(list[enemyNum - 1])
                 elif inpt =="2":
-                    print "You will use a lighting shot to electrify your opponent"
-                    inpt = raw_input("Enter a number based on the info from above:\n")
-                    try:
-                        inpt = int(inpt)
-                        mainCharacter.specialMove(list[inpt - 1])
-                    except:
-                         pass
-                    
+
+                    mainCharacter.specialMove(list[enemyNum - 1])
 
                 elif inpt =="3":
                     mainCharacter.Inventory.Openbag()
@@ -190,6 +196,32 @@ class Enemy:
     def attack(self, enemy):
         enemy.health = enemy.health - self.damage
         print "Your foe dealt %d damage" % self.damage
+
+        #if type(equipment) is Armor:
+                
+                #if type(equipment) is Helmet:
+                    #self.helmet = equipment 
+
+                #if type(equipment) is Chestpiece:
+                    #self.chestpiece = equipment
+
+            #if type(equipment) is Weapon:
+                #self.weapon = equipment
+            
+            #FYI: this is at the bottom of class character
+
+
+
+
+
+
+            #totaldamage = self.damage
+            #if enemy.chestpiece != None:
+               # totaldamage = totaldamage - enemy.chestpiece.impactpower
+            #if enemy.helmet != None:
+              #  totaldamage = totaldamage - enemy.helmet.impactpower
+            #nemy.health = enemy.health - totaldamage
+            #print "Your foe dealt %d damage" % totaldamage
 class Zombie(Enemy):
     health = 100
     damage = 5
