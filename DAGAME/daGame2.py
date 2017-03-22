@@ -73,11 +73,7 @@ class Inventory:
         self.list[int(inpt)].use()
 class Manapotion(Potion):
     use = "increase damage by ten"
-<<<<<<< HEAD
-
-            
-=======
->>>>>>> 124efb5b95e3e2509a10e4d2e4c4567d03a51d0a
+ 
 class Healthpotion(Potion):
     use = "increase health by 100"
 class Suicidepotion(Potion):
