@@ -73,8 +73,11 @@ class Inventory:
         self.list[int(inpt)].use()
 class Manapotion(Potion):
     use = "increase damage by ten"
+<<<<<<< HEAD
 
             
+=======
+>>>>>>> 124efb5b95e3e2509a10e4d2e4c4567d03a51d0a
 class Healthpotion(Potion):
     use = "increase health by 100"
 class Suicidepotion(Potion):
@@ -123,26 +126,32 @@ class Battle:
             while len(list) > 0:
                 #Your attack phase
                 inpt = raw_input ('1. attack\n2. use special move\n3. Open Bag\n')
+
                 enemyNum = 0
  
 
                 if inpt == "1" or inpt == "attack" or inpt == "2":
                     index = 1         
                     print list           
+
                     for enemy in list:
                         print index,
                         print enemy.__class__.__name__, enemy.health
                         index = index + 1
+
                     enemyNum = raw_input("What enemey(s) would you like to fight? Enter a number based on the info from above:\n")
+
                     try:
                         enemyNum = int(inpt)
                     except:
                          pass
+
                 if inpt == "1":
                     mainCharacter.attack(list[enemyNum - 1])
                 elif inpt =="2":
 
                     mainCharacter.specialMove(list[enemyNum - 1])
+
                 elif inpt =="3":
                     mainCharacter.Inventory.Openbag()
 
@@ -271,8 +280,6 @@ class Character:
             print self.weapon.name
 
         
-
-
 class Devil(Character):
     name = "Devil"
     
@@ -350,41 +357,19 @@ while True:
     elif inpt == "potions":
         inpt = raw_input ('here are your potions; which would you like to use:\n1.Healthpotion\n2.Manapotion\n3.Suicidepotion\n4.Money\n')
         if inpt == "1":
-            mainCharacter.health = mainCharacter.health + 1000
+            mainCharacter.health = mainCharacter.health + 100
         if inpt == "2":
-            mainCharacter.mana = mainCharacter.mana + 1000
+            mainCharacter.mana = mainCharacter.mana + 100
         if inpt == "3":
             inpt = raw_input ('are you sure you want to die: all your scores will be lost?\n')
             if inpt == "yes":
+                for x in loop:
                     inpt = raw_input ('YOU DIED! EXIT TERMINAL AND COME BACK TO PLAY AGAIN!')
-                    if inpt == "":
-                        inpt = raw_input ('NOW DON\'T YOU TRICK ME!! YOU DIED! EXIT TERMINAL AND COME BACK TO PLAY AGAIN!')
-                        if inpt == "":
-                            inpt = raw_input ('NOW DON\'T YOU TRICK ME!! YOU DIED! EXIT TERMINAL AND COME BACK TO PLAY AGAIN!')
-                            if inpt == "":
-                                inpt = raw_input ('NOW DON\'T YOU TRICK ME!! YOU DIED! EXIT TERMINAL AND COME BACK TO PLAY AGAIN!')
-                                if inpt == "":
-                                    inpt = raw_input ('NOW DON\'T YOU TRICK ME!! YOU DIED! EXIT TERMINAL AND COME BACK TO PLAY AGAIN!')
-                                    if inpt == "":
-                                        inpt = raw_input ('NOW DON\'T YOU TRICK ME!! YOU DIED! EXIT TERMINAL AND COME BACK TO PLAY AGAIN!')
-                                        if inpt == "":
-                                            inpt = raw_input ('NOW DON\'T YOU TRICK ME!! YOU DIED! EXIT TERMINAL AND COME BACK TO PLAY AGAIN!')
-                                            if inpt == "":
-                                                inpt = raw_input ('NOW DON\'T YOU TRICK ME!! YOU DIED! EXIT TERMINAL AND COME BACK TO PLAY AGAIN!')
-                                                if inpt == "":
-                                                    inpt = raw_input ('NOW DON\'T YOU TRICK ME!! YOU DIED! EXIT TERMINAL AND COME BACK TO PLAY AGAIN!')
-                                                    if inpt == "":
-                                                        inpt = raw_input ('NOW DON\'T YOU TRICK ME!! YOU DIED! EXIT TERMINAL AND COME BACK TO PLAY AGAIN!')
-                                                        if inpt == "":
-                                                            inpt = raw_input ('NOW DON\'T YOU TRICK ME!! YOU DIED! EXIT TERMINAL AND COME BACK TO PLAY AGAIN!')
-                                                            if inpt == "":
-                                                                inpt = raw_input ('NOW DON\'T YOU TRICK ME!! YOU DIED! EXIT TERMINAL AND COME BACK TO PLAY AGAIN!')
-                                                                if inpt == "":
-                                                                    inpt = raw_input ('NOW DON\'T YOU TRICK ME!! YOU DIED! EXIT TERMINAL AND COME BACK TO PLAY AGAIN!')
+
             if inpt == "no":
                 continue
         if inpt == "4":
-            mainCharacter.money = mainCharacter.money + 100
+            mainCharacter.money = mainCharacter.money + 50
 
     else:
         print "What's the matter with you, spell it right!!!"
