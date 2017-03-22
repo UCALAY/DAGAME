@@ -43,9 +43,11 @@ class WeaponShop:
             print mainCharacter.money 
         else: 
             if inpt == "1":
-                weapon = Longsword()
+                weapon = LongSword()
+                mainCharacter.equip(LongSword)
             if inpt == "2":
                 weapon = Bow()
+                mainCharacter.equip(Bow)
             inpt = raw_input ("would you still like to by this?\n1.yes\n2.no\n")
             if inpt == "1" or inpt == "yes":
                 mainCharacter.money = mainCharacter.money - 50
@@ -54,11 +56,10 @@ class WeaponShop:
             if inpt == "2" or inpt == "no":
                 pass 
  
-class Manapotion:
-    use = "increase damage by ten"
+
 class Potion:
     def equip():
-        mainCharacter.equip(self)
+        mainCharacter.equip(potion)
 class Inventory:
     list = {}
     def Addtobag(self, item):
@@ -66,15 +67,17 @@ class Inventory:
         self.list[id(item)] = item
     def Openbag(self):
         for key in self.list:
-            print self.list[key] 
-
-            print self.list[key].__class__.__name__ 
-
+            print key
+            print self.list[key].__class__.__name__
+        inpt = raw_input("What item would you like to take from your endless bag of junk: ")
+        self.list[int(inpt)].use()
+class Manapotion(Potion):
+    use = "increase damage by ten"
 
             
-class Healthpotion:
+class Healthpotion(Potion):
     use = "increase health by 100"
-class Suicidepotion:
+class Suicidepotion(Potion):
     use = "KILLS!!!!!"
     
             
@@ -85,11 +88,14 @@ class Weapon:
                
     def equip():
         mainCharacter.equip(self)
+    def use():
+        mainCharacter.equip(self)
 
 class LongSword(Weapon):
     damage = 50
     crit = 10
     name = "Long Sword"
+
 
 class Bow(Weapon):
     damage = 75
@@ -115,64 +121,48 @@ class Battle:
 
                     
             while len(list) > 0:
-                inpt = raw_input ('1. attack\n2. use potion\n')
-                if inpt == "1" or inpt == "attack":
-                    index = 1
-                    
-                    for enemy in list:
-                        print index
-                        print enemy.__class__.__name__, enemy. health
-                        index = index + 1
-                    inpt = raw_input("What enemey(s) would your like to fight? Enter a number: ")
-                    #make sure to create code line that checks the users input
-                    try:
-                        inpt = int(inpt)
-                        mainCharacter.attack(list[inpt - 1])
-                    except:
-                        pass
-                    
-                    
-                    for enemy in list:
-                        if enemy.health <= 0:
-                            list.remove(enemy)
-                            mainCharacter.money = mainCharacter.money + 10
-                            print "Enemy Defeated! You have gained 10 money to be greedy with. Just remember you are still poor!"
-                    for enemy in list:
-                        inpt = raw_input ('The %s is about to attack you. What would you like to do:\n1.dodge\n2.block\n'%enemy.name)
-                        if inpt == "dodge" or inpt == "1":
-                            if mainCharacter.dodge() == False:
-                               enemy.attack(mainCharacter)
+                #Your attack phase
+                inpt = raw_input ('1. attack\n2. use special move\n3. Open Bag\n')
+                enemyNum = 0
+ 
 
-                        elif inpt == "block" or inpt == "2":
-                            pass
-                        else:
-                            print "check your spelling!"
-                        inpt = raw_input ('would you like to use a special move?')
-                        if inpt == "yes":
-                            inpt = raw_input('You can use:\n1.lightning shot (Best for knight)\n2.invincible claws and teeth (best for werewolf)\n3.magical super power (best for rogue)\n')
-                            if inpt == "1":
-                                mainCharacter.specialMove(zombie)
-                            else:
-                                print "You failed!"
-                                continue
-                        if inpt == "no":
-                            break
-                            print "too bad"
-                            
-                elif inpt == "2" or inpt == "use potion":
-                    inpt = raw_input ('Which potion would you like to use:\n1.Health\n2.Mana\n3.Suicide\n')
-                    ###KIND OF A BIG PROBLEM! When people choose what potion, they could cheat by saying they want a health potion when they don't have it,and then they would get to use it anyway!!!
-                    if inpt == "1" or inpt == "health" or inpt == "Health":
-                        mainCharacter.healthpotion = mainCharacter.healthpotion - 1
-                        mainCharacter.health = mainCharacter.health + 100
-                    if inpt == "2" or inpt == "mana" or inpt == "Mana":
-                        mainCharacter.manapotion = mainCharacter.manapotion - 1
-                        mainCharacter.damage = mainCharacter.damage + 10
-                    if inpt == "3" or inpt == "suicide" or inpt == "Suicide":
-                        mainCharacter.suicidepotion = mainCharacter.suicidepotion - 1
-                        inpt = raw_input ('YOU DIED!!! Please close terminal and come back again to play more')
-        elif inpt == "run" or inpt == "2":
-            print "you ran away! Coward!!!"
+                if inpt == "1" or inpt == "attack" or inpt == "2":
+                    index = 1         
+                    print list           
+                    for enemy in list:
+                        print index,
+                        print enemy.__class__.__name__, enemy.health
+                        index = index + 1
+                    enemyNum = raw_input("What enemey(s) would you like to fight? Enter a number based on the info from above:\n")
+                    try:
+                        enemyNum = int(inpt)
+                    except:
+                         pass
+                if inpt == "1":
+                    mainCharacter.attack(list[enemyNum - 1])
+                elif inpt =="2":
+
+                    mainCharacter.specialMove(list[enemyNum - 1])
+                elif inpt =="3":
+                    mainCharacter.Inventory.Openbag()
+
+                   
+                #Enemy attack phase
+                for enemy in list:
+                    if enemy.health <= 0:
+                        list.remove(enemy)
+                        mainCharacter.money = mainCharacter.money + 10
+                        print "Enemy Defeated! You have gained 10 money to be greedy with. Just remember you're still poor!"
+                for enemy in list:
+                    inpt = raw_input ('The %s is about to attack you. What would you like to do:\n1.dodge\n2.block\n'%enemy.name)
+                    if inpt == "dodge" or inpt == "1":
+                        if mainCharacter.dodge() == False:
+                           enemy.attack(mainCharacter)
+
+                    elif inpt == "block" or inpt == "2":
+                        pass
+                    else:
+                        print "check your spelling!"
 
 class Enemy:
     health = 1
@@ -181,6 +171,32 @@ class Enemy:
     def attack(self, enemy):
         enemy.health = enemy.health - self.damage
         print "Your foe dealt %d damage" % self.damage
+
+        #if type(equipment) is Armor:
+                
+                #if type(equipment) is Helmet:
+                    #self.helmet = equipment 
+
+                #if type(equipment) is Chestpiece:
+                    #self.chestpiece = equipment
+
+            #if type(equipment) is Weapon:
+                #self.weapon = equipment
+            
+            #FYI: this is at the bottom of class character
+
+
+
+
+
+
+            #totaldamage = self.damage
+            #if enemy.chestpiece != None:
+               # totaldamage = totaldamage - enemy.chestpiece.impactpower
+            #if enemy.helmet != None:
+              #  totaldamage = totaldamage - enemy.helmet.impactpower
+            #nemy.health = enemy.health - totaldamage
+            #print "Your foe dealt %d damage" % totaldamage
 class Zombie(Enemy):
     health = 100
     damage = 5
@@ -267,14 +283,17 @@ class Knight(Character):
         if mainCharacter.mana <15:
             print "you don't have enough mana!"
             return
-        else:
+        elif mainCharacter.mana >15:
             mainCharacter.mana = mainCharacter.mana - 15
-            print "you shoot lightning, as that is your power as a knight."
             if random.randint(1,6) >3:
                 enemy.health = enemy.health - 200
-                print "you dealt %d damage" % 200
-            if random.randint(1,6) <3:
+                print "you dealt %d damage and succesfully completeted your special move!" % 200
+            elif random.randint(1,6) <3:
                 print "you failed your special move!!!"
+            else: 
+                print "sorry, there was an error. You will get 20 extra mana for this: we are sorry"
+                mainCharacter.mana = mainCharacter.mana + 20
+                
 
             
 
@@ -326,12 +345,47 @@ while True:
         battle = Battle()
     elif inpt == "Inventory" or inpt == "4":
         mainCharacter.Inventory.Openbag()
-    elif inpt == "what is my health?" or inpt == "what is my health" or inpt == "how much health do I have?" or inpt == "how much health do I have":
-        print mainCharacter.health
-    elif inpt == "how much money do I have?" or inpt == "how much money do I have":
-        print mainCharacter.money
-    elif inpt == "1" or inpt == "2" or inpt == "3" or inpt == "4" or inpt == "5" or inpt == "6" or inpt == "7" or inpt == "8" or inpt == "9":
-        pass
+    elif inpt == "show stats":
+        print "health = ", mainCharacter.health,"\nmoney = ", mainCharacter.money, "\nmana = ", mainCharacter.mana, "\nyour weapons = ", mainCharacter.weapon
+    elif inpt == "potions":
+        inpt = raw_input ('here are your potions; which would you like to use:\n1.Healthpotion\n2.Manapotion\n3.Suicidepotion\n4.Money\n')
+        if inpt == "1":
+            mainCharacter.health = mainCharacter.health + 1000
+        if inpt == "2":
+            mainCharacter.mana = mainCharacter.mana + 1000
+        if inpt == "3":
+            inpt = raw_input ('are you sure you want to die: all your scores will be lost?\n')
+            if inpt == "yes":
+                    inpt = raw_input ('YOU DIED! EXIT TERMINAL AND COME BACK TO PLAY AGAIN!')
+                    if inpt == "":
+                        inpt = raw_input ('NOW DON\'T YOU TRICK ME!! YOU DIED! EXIT TERMINAL AND COME BACK TO PLAY AGAIN!')
+                        if inpt == "":
+                            inpt = raw_input ('NOW DON\'T YOU TRICK ME!! YOU DIED! EXIT TERMINAL AND COME BACK TO PLAY AGAIN!')
+                            if inpt == "":
+                                inpt = raw_input ('NOW DON\'T YOU TRICK ME!! YOU DIED! EXIT TERMINAL AND COME BACK TO PLAY AGAIN!')
+                                if inpt == "":
+                                    inpt = raw_input ('NOW DON\'T YOU TRICK ME!! YOU DIED! EXIT TERMINAL AND COME BACK TO PLAY AGAIN!')
+                                    if inpt == "":
+                                        inpt = raw_input ('NOW DON\'T YOU TRICK ME!! YOU DIED! EXIT TERMINAL AND COME BACK TO PLAY AGAIN!')
+                                        if inpt == "":
+                                            inpt = raw_input ('NOW DON\'T YOU TRICK ME!! YOU DIED! EXIT TERMINAL AND COME BACK TO PLAY AGAIN!')
+                                            if inpt == "":
+                                                inpt = raw_input ('NOW DON\'T YOU TRICK ME!! YOU DIED! EXIT TERMINAL AND COME BACK TO PLAY AGAIN!')
+                                                if inpt == "":
+                                                    inpt = raw_input ('NOW DON\'T YOU TRICK ME!! YOU DIED! EXIT TERMINAL AND COME BACK TO PLAY AGAIN!')
+                                                    if inpt == "":
+                                                        inpt = raw_input ('NOW DON\'T YOU TRICK ME!! YOU DIED! EXIT TERMINAL AND COME BACK TO PLAY AGAIN!')
+                                                        if inpt == "":
+                                                            inpt = raw_input ('NOW DON\'T YOU TRICK ME!! YOU DIED! EXIT TERMINAL AND COME BACK TO PLAY AGAIN!')
+                                                            if inpt == "":
+                                                                inpt = raw_input ('NOW DON\'T YOU TRICK ME!! YOU DIED! EXIT TERMINAL AND COME BACK TO PLAY AGAIN!')
+                                                                if inpt == "":
+                                                                    inpt = raw_input ('NOW DON\'T YOU TRICK ME!! YOU DIED! EXIT TERMINAL AND COME BACK TO PLAY AGAIN!')
+            if inpt == "no":
+                continue
+        if inpt == "4":
+            mainCharacter.money = mainCharacter.money + 100
+
     else:
         print "What's the matter with you, spell it right!!!"
 
@@ -345,4 +399,3 @@ while True:
 #3.give different classes special moves
 #4.add sound effects
 #5.create and actual story line  
-
